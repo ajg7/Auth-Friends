@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import axiosWithAuth from "../axiosWithAuth";
+import { axiosWithAuth } from "../axiosWithAuth";
 
 
 const AddFriend = props => {

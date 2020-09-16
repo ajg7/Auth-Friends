@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import axiosWithAuth from "../axiosWithAuth";
+import { axiosWithAuth } from "../axiosWithAuth";
 
 const Login = props => {
 
@@ -21,8 +21,9 @@ const Login = props => {
         event.preventDefault();
         axiosWithAuth().post("/api/login", loginValues)
             .then(response => {
+                console.log(response.data.payload)
                 localStorage.setItem("token", response.data.payload);
-                history.push("/friends");
+                history.push("/protected");
             })
             .catch(error => {
                 console.log(error)

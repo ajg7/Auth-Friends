@@ -1,11 +1,11 @@
 import React, { useState, useEffect} from "react";
-import axiosWithAuth from "../axiosWithAuth";
+import { axiosWithAuth } from "../axiosWithAuth";
 
 const Friends = props => {
     const [friends, setFriends] = useState([]);
 
     useEffect(() => {
-        axiosWithAuth().get("./api/friends")
+        axiosWithAuth().get("/api/friends")
             .then(response => {
                 setFriends(response.data)
             })
