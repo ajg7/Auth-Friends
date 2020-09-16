@@ -1,34 +1,74 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 import axiosWithAuth from "../axiosWithAuth";
 
-const AddFriend = props => {
 
-    const initialFriendValues = {
+const AddFriend = props => {
+    const initialFriendValue = {
         name: "",
         age: "",
         email: ""
     }
 
-    const [friendValues, setFriendValues] = useState(initialFriendValues);
+    const [friendValues, setFriendValues] = useState(initialFriendValue);
     const history = useHistory();
 
     const change = event => {
-        setFriendValues({...friendValues, [event.target.name]: event.target.value})
+        setFriendValues({
+            ...friendValues,
+            [event.target.name]: event.target.value
+        })
     }
 
-    const addFriend = event => {
+    const submit = event => {
         event.preventDefault();
-        axiosWithAuth().post("http://localhost:5000/api/friends", friendValues)
-            .then(response => {
-                localStorage.setItem("token", response.data.payload);
-                history.push("/protected");
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
+        setFriendValues({
+            ...friendValues
+        })
     }
+
+
+    axiosWithAuth().post("./api/friends", friendValues)
+        .then(response => {
+            localStorage.setItem("token", response.data.payload)
+            history.push("/friendsList")
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+    return(
+        <>
+            <form>
+                <label>Name: 
+                    <input 
+                    name="name"
+                    type="text"
+                    value={friendValues.name}
+                    onChange={change}
+                    />
+                </label>
+                <label>Age: 
+                    <input 
+                    name="age"
+                    type="text"
+                    value={friendValues.age}
+                    onChange={change}
+                    />
+                </label>
+                <label>Email: 
+                    <input 
+                    name="email"
+                    type="text"
+                    value={friendValues.email}
+                    onChange={change}
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+        </>
+    )
 
 
 }

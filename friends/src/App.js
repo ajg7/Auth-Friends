@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Link} from "react-router-dom";
 import Login from "./components/Login";
 import Friends from "./components/Friends";
-import AddFriends from "./components/AddFriend";
+import AddFriend from "./components/AddFriend";
 import PrivateRoute from "./components/PrivateRoute";
 
 
@@ -12,11 +12,13 @@ function App() {
       <ul>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/friends">Friends List</Link></li>
+        <li><Link to="/friend_form">Add Friends</Link></li>
       </ul>
-      <Switch>
-        <PrivateRoute exact path="/protected" component={Friends} />
-        <Route component={Login} />
-      </Switch>
+      <Route>
+        <Login />
+      </Route>
+      <PrivateRoute exact path="/friends" component={Friends} />
+      <PrivateRoute exact path="/friend_form" component={AddFriend} />
     </div>
   );
 }
