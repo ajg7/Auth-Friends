@@ -26,21 +26,20 @@ const AddFriend = props => {
         setFriendValues({
             ...friendValues
         })
+        console.log("it works")
+        axiosWithAuth().post("./api/friends", friendValues)
+            .then(response => {
+                localStorage.setItem("token", response.data.payload)
+                history.push("/friends")
+            })
+            .catch(error => {
+                console.log(error);
+        })
     }
-
-
-    axiosWithAuth().post("./api/friends", friendValues)
-        .then(response => {
-            localStorage.setItem("token", response.data.payload)
-            history.push("/friendsList")
-        })
-        .catch(error => {
-            console.log(error);
-        })
 
     return(
         <>
-            <form>
+            <form onSubmit={submit}>
                 <label>Name: 
                     <input 
                     name="name"

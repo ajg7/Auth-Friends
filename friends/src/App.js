@@ -16,9 +16,10 @@ function App() {
           <li><Link to="/friend_form">Add Friends</Link></li>
         </ul>
         <Switch>
-          <PrivateRoute exact path="/protected" component={Friends} />
-          <Route path="/login" component={Login} />
+          <PrivateRoute exact path="/friends" component={Friends} />
           <Route path="/friend_form" component={AddFriend} />
+          <Route path="/login" component={Login} />
+          
         </Switch>
       </div>
     </Router>
