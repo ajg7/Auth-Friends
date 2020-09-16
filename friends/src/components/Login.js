@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { axiosWithAuth } from "../axiosWithAuth";
+import axiosWithAuth from "../axiosWithAuth";
 
 const Login = props => {
 
@@ -19,10 +19,10 @@ const Login = props => {
 
     const submitLogin = event => {
         event.preventDefault();
-        axiosWithAuth().post("http://localhost:5000/api/login", loginValues)
+        axiosWithAuth().post("/api/login", loginValues)
             .then(response => {
                 localStorage.setItem("token", response.data.payload);
-                history.push("/protected");
+                history.push("/friends");
             })
             .catch(error => {
                 console.log(error)
@@ -39,6 +39,7 @@ const Login = props => {
                     name="username"
                     type="text"
                     placeholder="Enter Username Here..."
+                    value={loginValues.username}
                     onChange={change}
                     />
                 </label>
@@ -47,10 +48,11 @@ const Login = props => {
                     name="password"
                     type="password"
                     placeholder="Enter Password Here..."
+                    value={loginValues.password}
                     onChange={change}
                     />
                 </label>
-                <button>Login</button>
+                <button type="submit">Login</button>
             </form>
         </div>
     )
